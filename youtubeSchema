@@ -1,0 +1,71 @@
+Users
+-------
+id: integer
+first_name: string
+last_name: string
+email: string
+is_youtube_red_member: boolean
+
+User_Profile
+-------
+profile_img_url: text
+about_video_url: text
+channel_name: string
+about_message: text
+subscribed_channels: integer
+
+Log_In
+-------
+username: string
+password: string
+
+Videos
+-------
+id: integer
+title: string
+description: text
+video_url: text
+duration: datetime
+created_at: datetime
+deleted_at: datetime
+
+Reviews
+-------
+thumbs_up: integer
+thumbs_down: integer
+shares: integer
+subscribers: integer
+
+Comments
+-------
+commenter_full_name: integer 
+comment: text
+replies: integer
+comment_likes: integer
+post_at: datetime
+deleted_at: datetime
+commenter_img_url: text
+
+One-to-Many Relationship Example:
+One User can subscribe to many channels.
+
+Many-to-Many Relationship Example:
+Many Users can post/contribute to many channels or videos.
+A join table would be created, called UserVideos with a user_id and video_id column.
+
+Example:
+
+class User < ActiveRecord::Base
+has_many :user_videos
+has_many :videos, :through => :user_videos
+end
+
+class Videos < ActiveRecord::Base
+has_many :user_videos
+has_many :users, :through => :user_videos
+end
+
+class UserAddresses < ActiveRecord::Base
+belongs_to :user
+belongs_to :video
+end
